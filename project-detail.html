@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Detail - KIM DESIGN</title>
+
+  <!-- 폰트 & 스타일 (메인과 동일) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'Noto Sans KR', 'sans-serif'] },
+          colors: { gray: { 50: '#f9fafb', 100: '#f3f4f6', 800: '#1f2937', 900: '#111827' } }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white text-gray-900 font-sans antialiased">
+
+<!-- 네비게이션 (헤더) - 메인과 동일하게 유지 -->
+<nav class="fixed w-full z-50 top-0 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+    <!-- 클릭하면 메인으로 돌아갑니다 -->
+    <a href="index.html" class="text-xl font-bold tracking-tight hover:opacity-60 transition-opacity">
+      KIM DESIGN
+    </a>
+
+    <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
+      <a href="index.html#work" class="hover:text-black transition-colors">Work</a>
+      <a href="index.html#about" class="hover:text-black transition-colors">About</a>
+      <a href="index.html#contact" class="hover:text-black transition-colors">Contact</a>
+    </div>
+
+    <!-- 닫기 버튼 (헤더 오른쪽에 X 표시를 두어 메인으로 돌아가는 느낌을 줌) -->
+    <a href="index.html" class="md:hidden p-2 text-gray-500">✕</a>
+  </div>
+</nav>
+
+<!-- 상세 내용 영역 -->
+<main class="pt-32 pb-20 px-6 max-w-5xl mx-auto">
+
+  <!-- 프로젝트 제목 & 개요 -->
+  <header class="mb-16">
+    <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">Brand Identity Renewal Project</h1>
+    <div class="flex flex-col md:flex-row gap-6 text-sm text-gray-500 border-t border-gray-100 pt-6">
+      <div class="w-full md:w-1/4">
+        <span class="block text-gray-900 font-bold mb-1">Role</span>
+        UI/UX Design, Branding
+      </div>
+      <div class="w-full md:w-1/4">
+        <span class="block text-gray-900 font-bold mb-1">Year</span>
+        2024
+      </div>
+      <div class="w-full md:w-1/2">
+        <span class="block text-gray-900 font-bold mb-1">Overview</span>
+        이 프로젝트는 기존 브랜드의 노후화된 이미지를 개선하고, 디지털 환경에 최적화된 새로운 시각적 언어를 정의하는 것을 목표로 했습니다. 사용자의 접근성을 높이고 브랜드 핵심 가치를 재정립했습니다.
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 이미지 (Hero Image) -->
+  <figure class="mb-16 rounded-lg overflow-hidden bg-gray-100">
+    <!-- 메인 페이지와 같은 이미지 혹은 더 고화질 이미지 -->
+    <img src="image_699e54.jpg" alt="Project Hero" class="w-full h-auto">
+  </figure>
+
+  <!-- 본문 내용 (이미지와 글 반복) -->
+  <article class="space-y-24">
+
+    <!-- 섹션 1 -->
+    <section class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-2xl font-bold mb-4">The Challenge</h2>
+        <p class="text-gray-600 leading-relaxed">
+          기존 디자인 시스템은 파편화되어 있어 채널별로 일관된 목소리를 내지 못했습니다. 우리는 로고부터 타이포그래피, 컬러 팔레트까지 모든 요소를 원점에서 재검토했습니다.
+        </p>
+      </div>
+      <div class="rounded-lg overflow-hidden bg-gray-50">
+        <!-- 상세 이미지 1 -->
+        <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2000" alt="Detail 1" class="w-full h-auto">
+      </div>
+    </section>
+
+    <!-- 섹션 2 (큰 이미지) -->
+    <section>
+      <div class="rounded-lg overflow-hidden bg-gray-50 mb-8">
+        <!-- 상세 이미지 2 -->
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000" alt="Detail 2" class="w-full h-auto">
+      </div>
+      <p class="text-gray-600 max-w-2xl mx-auto text-center leading-relaxed">
+        최종 결과물은 모바일 퍼스트 전략을 기반으로 하여, 어떤 디바이스에서도 브랜드의 아이덴티티가 명확하게 전달되도록 설계되었습니다.
+      </p>
+    </section>
+
+  </article>
+
+  <!-- 다음 프로젝트로 넘어가기 / 목록으로 돌아가기 -->
+  <div class="mt-32 pt-16 border-t border-gray-100 flex justify-between items-center">
+    <a href="index.html" class="text-gray-500 hover:text-black font-medium">← Back to List</a>
+
+    <!-- 다음 프로젝트 페이지가 있다면 링크 연결 -->
+    <a href="#" class="text-xl font-bold hover:opacity-60 transition-opacity text-right">
+      <span class="block text-xs text-gray-400 font-normal mb-1">Next Project</span>
+      Mobile App Design →
+    </a>
+  </div>
+
+</main>
+
+<!-- 푸터 -->
+<footer class="bg-gray-50 border-t border-gray-200 py-12 text-center">
+  <p class="text-sm text-gray-400">&copy; 2024 Kim Design.</p>
+</footer>
+
+</body>
+</html>
