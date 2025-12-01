@@ -23,6 +23,15 @@
           },
           colors: {
             paper: '#fdfbf7',
+          },
+          animation: {
+            'wiggle': 'wiggle 0.3s ease-in-out infinite',
+          },
+          keyframes: {
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-3deg)' },
+              '50%': { transform: 'rotate(3deg)' },
+            }
           }
         }
       }
@@ -53,24 +62,28 @@
     #bottom-nav {
       transition: opacity 0.5s ease;
     }
+
+    /* 툴팁 화살표 */
+    .tooltip-arrow::after {
+      content: " ";
+      position: absolute;
+      top: 100%; /* 툴팁 바닥 */
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
+    }
   </style>
 </head>
 
 <body class="bg-gray-900 text-white font-serif antialiased m-0 p-0 overflow-x-hidden">
 
-<!--
-   [상단 고정 헤더]
-   mix-blend-difference 클래스가 핵심입니다.
-   이 클래스 덕분에 흰색 글씨가 흰 배경 위에서는 검은색으로, 검은 배경 위에서는 흰색으로 보입니다.
--->
+<!-- [상단 고정 헤더] -->
 <div class="fixed top-0 left-0 w-full p-6 md:p-10 z-50 flex items-start text-lg md:text-xl mix-blend-difference text-white pointer-events-none">
-
-  <!-- 로고 -->
   <div class="font-bold tracking-wide pointer-events-auto cursor-pointer" onclick="window.scrollTo(0,0)">
     KIM DESIGN
   </div>
-
-  <!-- Work 링크 (스크롤 시 중앙으로 이동) -->
   <a id="work-link" href="#work-section" class="fixed right-6 md:right-10 top-6 md:top-10 hover:opacity-70 italic pointer-events-auto">
     Work
   </a>
@@ -116,66 +129,117 @@
   </div>
 </div>
 
-<!-- [Work 섹션] -->
-<section id="work-section" class="bg-white text-gray-900 relative z-40 min-h-screen py-24 px-6">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-24 mt-10">
+<!-- [Work 섹션: 폰 프레임 디자인] -->
+<section id="work-section" class="bg-white text-gray-900 relative z-40 min-h-screen flex items-center justify-center py-24 px-6">
 
-      <!-- 프로젝트 1 -->
-      <a href="project-detail.html" class="block group cursor-pointer">
-        <div class="overflow-hidden bg-gray-100 aspect-[4/3] mb-6 relative">
-          <img src="image_699e54.jpg" alt="Work 1" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition duration-500"></div>
-        </div>
-        <div class="flex justify-between items-baseline border-b border-gray-200 pb-2">
-          <h3 class="text-xl md:text-2xl italic group-hover:text-gray-600 transition">Brand Identity Renewal</h3>
-          <span class="text-sm font-sans text-gray-400">2024</span>
-        </div>
-        <p class="mt-2 text-sm text-gray-500 font-sans">Branding, UI/UX</p>
-      </a>
+  <!-- 폰 프레임 컨테이너 -->
+  <div class="relative w-full max-w-[380px] bg-gray-900 rounded-[3rem] border-8 border-gray-900 shadow-2xl overflow-hidden">
 
-      <!-- 프로젝트 2 -->
-      <a href="#" class="block group cursor-pointer">
-        <div class="overflow-hidden bg-gray-100 aspect-[4/3] mb-6 relative">
-          <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2000" alt="Work 2" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-        </div>
-        <div class="flex justify-between items-baseline border-b border-gray-200 pb-2">
-          <h3 class="text-xl md:text-2xl italic group-hover:text-gray-600 transition">Mobile App Design</h3>
-          <span class="text-sm font-sans text-gray-400">2023</span>
-        </div>
-        <p class="mt-2 text-sm text-gray-500 font-sans">Product Design</p>
-      </a>
+    <!-- 상단 노치 (Notch) -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 h-7 w-32 bg-gray-900 rounded-b-2xl z-20"></div>
 
-      <!-- 프로젝트 3 -->
-      <a href="#" class="block group cursor-pointer">
-        <div class="overflow-hidden bg-gray-100 aspect-[4/3] mb-6 relative">
-          <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2000" alt="Work 3" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-        </div>
-        <div class="flex justify-between items-baseline border-b border-gray-200 pb-2">
-          <h3 class="text-xl md:text-2xl italic group-hover:text-gray-600 transition">Editorial Layout</h3>
-          <span class="text-sm font-sans text-gray-400">2023</span>
-        </div>
-        <p class="mt-2 text-sm text-gray-500 font-sans">Print, Editorial</p>
-      </a>
+    <!-- 화면 영역 -->
+    <div class="bg-gray-50 w-full h-full rounded-[2.5rem] pt-14 pb-8 px-6 min-h-[600px] flex flex-col">
 
-      <!-- 프로젝트 4 -->
-      <a href="#" class="block group cursor-pointer">
-        <div class="overflow-hidden bg-gray-100 aspect-[4/3] mb-6 relative">
-          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000" alt="Work 4" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+      <!-- 상단 상태바 느낌 -->
+      <div class="flex justify-between items-center text-xs font-bold text-gray-800 mb-8 px-2 font-sans">
+        <span>9:41</span>
+        <div class="flex gap-1">
+          <div class="w-4 h-2.5 bg-gray-800 rounded-[2px]"></div>
+          <div class="w-0.5 h-2.5 bg-gray-300 rounded-[1px]"></div>
         </div>
-        <div class="flex justify-between items-baseline border-b border-gray-200 pb-2">
-          <h3 class="text-xl md:text-2xl italic group-hover:text-gray-600 transition">Web Experience</h3>
-          <span class="text-sm font-sans text-gray-400">2023</span>
-        </div>
-        <p class="mt-2 text-sm text-gray-500 font-sans">Web Design</p>
-      </a>
+      </div>
 
-    </div>
+      <!-- 3x2 앱 아이콘 그리드 -->
+      <div class="grid grid-cols-3 gap-x-4 gap-y-8">
 
-    <div class="mt-32 border-t border-gray-200 pt-8 text-center text-sm font-sans text-gray-400">
-      &copy; 2025 MIN Design.
+        <!-- 앱 1 -->
+        <a href="project-detail.html" class="group relative flex flex-col items-center cursor-pointer">
+          <!-- 툴팁 (말풍선) -->
+          <div class="tooltip-arrow absolute -top-10 bg-black/70 text-white text-[10px] font-sans px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-30">
+            Branding
+          </div>
+          <!-- 아이콘 (호버시 흔들림) -->
+          <div class="w-full aspect-square bg-white rounded-2xl overflow-hidden shadow-sm group-hover:shadow-lg transition-shadow group-hover:animate-wiggle">
+            <img src="image_699e54.jpg" alt="Icon" class="w-full h-full object-cover">
+          </div>
+          <!-- 앱 이름 -->
+          <span class="mt-2 text-[10px] font-sans font-medium text-gray-600 text-center leading-tight">Identity</span>
+        </a>
+
+        <!-- 앱 2 -->
+        <a href="#" class="group relative flex flex-col items-center cursor-pointer">
+          <div class="tooltip-arrow absolute -top-10 bg-black/70 text-white text-[10px] font-sans px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-30">
+            UI/UX Design
+          </div>
+          <div class="w-full aspect-square bg-white rounded-2xl overflow-hidden shadow-sm group-hover:shadow-lg transition-shadow group-hover:animate-wiggle">
+            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2000" alt="Icon" class="w-full h-full object-cover">
+          </div>
+          <span class="mt-2 text-[10px] font-sans font-medium text-gray-600 text-center leading-tight">Mobile App</span>
+        </a>
+
+        <!-- 앱 3 -->
+        <a href="#" class="group relative flex flex-col items-center cursor-pointer">
+          <div class="tooltip-arrow absolute -top-10 bg-black/70 text-white text-[10px] font-sans px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-30">
+            Editorial
+          </div>
+          <div class="w-full aspect-square bg-white rounded-2xl overflow-hidden shadow-sm group-hover:shadow-lg transition-shadow group-hover:animate-wiggle">
+            <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2000" alt="Icon" class="w-full h-full object-cover">
+          </div>
+          <span class="mt-2 text-[10px] font-sans font-medium text-gray-600 text-center leading-tight">Editorial</span>
+        </a>
+
+        <!-- 앱 4 -->
+        <a href="#" class="group relative flex flex-col items-center cursor-pointer">
+          <div class="tooltip-arrow absolute -top-10 bg-black/70 text-white text-[10px] font-sans px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-30">
+            Web Design
+          </div>
+          <div class="w-full aspect-square bg-white rounded-2xl overflow-hidden shadow-sm group-hover:shadow-lg transition-shadow group-hover:animate-wiggle">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000" alt="Icon" class="w-full h-full object-cover">
+          </div>
+          <span class="mt-2 text-[10px] font-sans font-medium text-gray-600 text-center leading-tight">Web Exp</span>
+        </a>
+
+        <!-- 앱 5 -->
+        <a href="#" class="group relative flex flex-col items-center cursor-pointer">
+          <div class="tooltip-arrow absolute -top-10 bg-black/70 text-white text-[10px] font-sans px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-30">
+            Branding
+          </div>
+          <div class="w-full aspect-square bg-white rounded-2xl overflow-hidden shadow-sm group-hover:shadow-lg transition-shadow group-hover:animate-wiggle">
+            <!-- 임시 이미지 (회색 박스) -->
+            <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+              <span class="text-xs">IMG</span>
+            </div>
+          </div>
+          <span class="mt-2 text-[10px] font-sans font-medium text-gray-600 text-center leading-tight">Package</span>
+        </a>
+
+        <!-- 앱 6 -->
+        <a href="#" class="group relative flex flex-col items-center cursor-pointer">
+          <div class="tooltip-arrow absolute -top-10 bg-black/70 text-white text-[10px] font-sans px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-30">
+            Others
+          </div>
+          <div class="w-full aspect-square bg-white rounded-2xl overflow-hidden shadow-sm group-hover:shadow-lg transition-shadow group-hover:animate-wiggle">
+            <!-- 임시 이미지 -->
+            <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+              <span class="text-xs">IMG</span>
+            </div>
+          </div>
+          <span class="mt-2 text-[10px] font-sans font-medium text-gray-600 text-center leading-tight">Archive</span>
+        </a>
+
+      </div>
+
+      <!-- 폰 화면 하단 독(Dock) 느낌 (옵션) -->
+      <div class="mt-auto mb-2 mx-2 p-3 bg-white/50 backdrop-blur-sm rounded-3xl flex justify-around items-center">
+        <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-white text-[10px]">Call</div>
+        <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center text-white text-[10px]">Mail</div>
+        <div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center text-white text-[10px]">Insta</div>
+      </div>
+
     </div>
   </div>
+
 </section>
 
 <!-- [스크립트] -->
@@ -188,9 +252,8 @@
     const windowHeight = window.innerHeight;
     const docHeight = document.body.offsetHeight;
 
-    // 1. Work 이동 (색상 변경 코드 삭제 -> mix-blend-difference가 자동 처리)
+    // 1. Work 이동 (화면 중앙으로)
     if (scrollY > 50) {
-      // 화면 중앙으로 이동 (-50vw 화면 절반 + 40px 여백 보정)
       workLink.style.transform = `translateX(calc(-50vw + 40px))`;
     } else {
       workLink.style.transform = 'translateX(0)';
