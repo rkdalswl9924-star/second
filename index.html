@@ -3,149 +3,263 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MinJi Kang DESIGN - Portfolio</title>
-  <meta name="description" content="디자이너 포트폴리오 사이트입니다.">
+  <title>KIM DESIGN</title>
 
-  <!-- 폰트 & 스타일 -->
+  <!-- 폰트: Libre Baskerville (영어용), Noto Serif KR (한글용) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Serif+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'Noto Serif KR', 'serif'] },
-          colors: { gray: { 50: '#f9fafb', 100: '#f3f4f6', 800: '#1f2937', 900: '#111827' } }
+          fontFamily: {
+            // 영어는 Baskerville, 한글은 명조체 우선 적용
+            serif: ['"Libre Baskerville"', '"Noto Serif KR"', 'serif'],
+            sans: ['"Inter"', '"Noto Sans KR"', 'sans-serif']
+          },
+          colors: {
+            // 텍스트 색상을 약간 오프화이트로 설정하여 고급스럽게
+            paper: '#fdfbf7',
+          }
         }
       }
     }
   </script>
+
   <style>
     html { scroll-behavior: smooth; }
-    .project-card img { transition: transform 0.5s ease; }
-    .project-card:hover img { transform: scale(1.03); }
+
+    /* 이미지 페이드 효과 */
+    .fade-img {
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .fade-img.active {
+      opacity: 1;
+    }
+
+    /* 텍스트 가독성을 위한 은은한 그림자 */
+    .text-shadow {
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    /* 스크롤바 숨기기 (깔끔함을 위해) */
+    ::-webkit-scrollbar { width: 0px; background: transparent; }
   </style>
 </head>
-<body class="bg-white text-gray-900 font-sans antialiased">
 
-<!-- 네비게이션 (헤더) -->
-<nav class="fixed w-full z-50 top-0 bg-white/90 backdrop-blur-sm border-b border-gray-100 transition-all duration-300">
-  <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-    <!-- 로고 클릭시 메인으로 -->
-    <a href="index.html" class="text-xl font-bold tracking-tight hover:opacity-60 transition-opacity">
-      KANG MIN JI DESIGN
+<body class="bg-gray-900 text-white font-serif antialiased m-0 p-0 overflow-x-hidden">
+
+<!-- =======================
+     1. HERO SECTION (첫 화면)
+     ======================= -->
+<header class="relative w-full h-screen overflow-hidden">
+
+  <!-- 배경 이미지 슬라이더 -->
+  <div id="slider" class="absolute inset-0 z-0">
+    <!-- 슬라이드 이미지들 (원하는 이미지로 교체하세요) -->
+    <!-- 1번 이미지: 보내주신 파일 -->
+    <img src="image_67db20.jpg" class="fade-img active" alt="Slide 1">
+    <!-- 2번 이미지: 보내주신 파일 -->
+    <img src="image_699e54.jpg" class="fade-img" alt="Slide 2">
+    <!-- 3번 이미지: 예시 (Unsplash) -->
+    <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000" class="fade-img" alt="Slide 3">
+
+    <!-- 어두운 오버레이 (글씨 잘 보이게) -->
+    <div class="absolute inset-0 bg-black/20"></div>
+  </div>
+
+  <!-- 고정 메뉴 (Top) -->
+  <div class="fixed top-0 left-0 w-full p-6 md:p-10 z-50 flex justify-between items-start text-lg md:text-xl mix-blend-difference text-white">
+    <!-- 왼쪽 상단: 이름 -->
+    <div class="font-bold tracking-wide cursor-default">
+      KIM DESIGN
+    </div>
+
+    <!-- 오른쪽 상단 (또는 이름 옆): Work 링크 -->
+    <!-- Work를 누르면 아래 프로젝트 목록으로 이동 -->
+    <a href="#work-section" class="hover:opacity-70 transition-opacity italic">
+      Work
+    </a>
+  </div>
+
+  <!-- 고정 메뉴 (Bottom) -->
+  <div class="fixed bottom-0 left-0 w-full p-6 md:p-10 z-50 flex justify-between items-end text-lg md:text-xl mix-blend-difference text-white">
+
+    <!-- 왼쪽 하단: Information (클릭 시 소개글 모달) -->
+    <button onclick="toggleInfo()" class="hover:opacity-70 transition-opacity italic text-left">
+      Information
+    </button>
+
+    <!-- 중앙 하단: Contact -->
+    <a href="mailto:hello@kimdesigner.com" class="absolute left-1/2 -translate-x-1/2 bottom-6 md:bottom-10 hover:opacity-70 transition-opacity italic">
+      Contact
     </a>
 
-    <!-- 메뉴 -->
-    <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
-      <a href="index.html#work" class="hover:text-black transition-colors">Work</a>
-      <a href="index.html#about" class="hover:text-black transition-colors">About</a>
-      <!-- 예시: 상세 페이지로 바로 가는 링크를 헤더에 넣고 싶다면 아래처럼 추가 -->
-      <!-- <a href="project-detail.html" class="hover:text-black transition-colors">Project A</a> -->
-      <a href="#contact" class="hover:text-black transition-colors">Contact</a>
-    </div>
-
-    <!-- 모바일 버튼 (생략 가능하나 유지) -->
-    <button id="mobile-menu-btn" class="md:hidden p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+    <!-- 오른쪽 하단: Instagram -->
+    <a href="https://instagram.com" target="_blank" class="hover:opacity-70 transition-opacity italic text-right">
+      Instagram
+    </a>
   </div>
-  <!-- 모바일 메뉴 -->
-  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0">
-    <div class="flex flex-col px-6 py-4 space-y-4 text-sm font-medium">
-      <a href="index.html#work" class="block hover:text-gray-500">Work</a>
-      <a href="index.html#about" class="block hover:text-gray-500">About</a>
+</header>
+
+
+<!-- =======================
+     2. INFORMATION MODAL (소개글)
+     'Information' 클릭 시 나타남
+     ======================= -->
+<div id="info-modal" class="fixed inset-0 z-[60] bg-black/90 text-white hidden flex items-center justify-center p-6 transition-opacity duration-500 opacity-0">
+  <div class="max-w-2xl text-center relative">
+    <!-- 닫기 버튼 -->
+    <button onclick="toggleInfo()" class="absolute -top-12 right-0 md:-right-12 text-2xl hover:rotate-90 transition-transform duration-300">✕</button>
+
+    <h2 class="text-3xl md:text-4xl mb-8 italic">About Me</h2>
+
+    <!-- 기존 소개글을 여기로 이동 -->
+    <div class="text-lg md:text-xl leading-relaxed space-y-6 text-gray-200">
+      <p>
+        안녕하세요.<br>
+        문제를 해결하는 디자이너 <span class="italic text-white">김디자</span>입니다.
+      </p>
+      <p>
+        사용자의 경험을 아름답고 논리적으로 설계합니다.<br>
+        단순함 속에 깊이가 있는 디자인을 추구하며,<br>
+        브랜드의 가치를 시각적 언어로 번역합니다.
+      </p>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-gray-700 text-sm text-gray-500 font-sans">
+      Currently based in Seoul, South Korea.<br>
+      Available for freelance projects.
     </div>
   </div>
-</nav>
+</div>
 
-<main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
-  <!-- 인트로 -->
-  <section id="about" class="mb-24 md:mb-40 fade-in-section opacity-0 translate-y-4 transition-all duration-1000 ease-out">
-    <h1 class="text-[24px] md:text-[40px] lg:text-[50px] font-bold leading-tight mb-8">
-      안녕하세요.<br>
-      다양한 무드를 아우르는 디자이너<br>
-      <span class="text-gray-400">강민지</span>입니다.
-    </h1>
-    <p class="text-lg md:text-xl text-gray-500 max-w-2xl leading-relaxed">
-      경험이 필요에 따라 아름답고 설득되도록 설계합니다.
-    </p>
-  </section>
 
-  <!-- Work 목록 -->
-  <section id="work">
-    <div class="flex justify-between items-end mb-12 border-b border-gray-200 pb-4">
-      <h2 class="text-2xl font-bold">Projects</h2>
-      <span class="text-sm text-gray-500">2023 — 2024</span>
-    </div>
+<!-- =======================
+     3. WORK SECTION (프로젝트 목록)
+     스크롤 내리거나 'Work' 클릭 시 보임
+     ======================= -->
+<section id="work-section" class="bg-white text-gray-900 relative z-40 min-h-screen py-32 px-6">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-3xl font-bold mb-16 italic text-center">Selected Works</h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-24">
 
-      <!--
-         [중요] <a> 태그로 감싸서 클릭 시 페이지 이동하게 변경함
-         href="project-detail.html" -> 이 파일로 이동
-      -->
-      <a href="project-detail.html" class="block group project-card">
-        <div class="overflow-hidden rounded-lg bg-gray-100 aspect-[4/3] mb-6 relative">
-          <img src="image_699e54.jpg" alt="Brand Identity" class="w-full h-full object-cover">
+      <!-- 프로젝트 1 -->
+      <a href="project-detail.html" class="block group cursor-pointer">
+        <div class="overflow-hidden bg-gray-100 aspect-[4/3] mb-6 relative">
+          <!-- 이미지 -->
+          <img src="image_699e54.jpg" alt="Work 1" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+          <!-- 호버 시 오버레이 -->
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition duration-500"></div>
         </div>
-        <div class="flex justify-between items-start">
-          <div>
-            <h3 class="text-xl font-bold mb-1 group-hover:underline decoration-2 underline-offset-4">Brand Identity Renewal</h3>
-            <p class="text-gray-500 text-sm">Branding, UI/UX</p>
-          </div>
-          <span class="text-xs font-mono border border-gray-200 px-2 py-1 rounded-full text-gray-500">View Case</span>
+        <div class="flex justify-between items-baseline border-b border-gray-200 pb-2">
+          <h3 class="text-xl md:text-2xl italic group-hover:text-gray-600 transition">Brand Identity Renewal</h3>
+          <span class="text-sm font-sans text-gray-400">2024</span>
         </div>
+        <p class="mt-2 text-sm text-gray-500 font-sans">Branding, UI/UX</p>
       </a>
 
-      <!-- 두 번째 프로젝트 (아직 페이지 없으니 #으로 둠) -->
-      <a href="#" class="block group project-card">
-        <div class="overflow-hidden rounded-lg bg-gray-100 aspect-[4/3] mb-6">
-          <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover">
+      <!-- 프로젝트 2 -->
+      <a href="#" class="block group cursor-pointer">
+        <div class="overflow-hidden bg-gray-100 aspect-[4/3] mb-6 relative">
+          <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2000" alt="Work 2" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
         </div>
-        <div class="flex justify-between items-start">
-          <div>
-            <h3 class="text-xl font-bold mb-1 group-hover:underline decoration-2 underline-offset-4">Mobile App Design</h3>
-            <p class="text-gray-500 text-sm">Product Design</p>
-          </div>
-          <span class="text-xs font-mono border border-gray-200 px-2 py-1 rounded-full text-gray-500">2023</span>
+        <div class="flex justify-between items-baseline border-b border-gray-200 pb-2">
+          <h3 class="text-xl md:text-2xl italic group-hover:text-gray-600 transition">Mobile App Design</h3>
+          <span class="text-sm font-sans text-gray-400">2023</span>
         </div>
+        <p class="mt-2 text-sm text-gray-500 font-sans">Product Design</p>
+      </a>
+
+      <!-- 프로젝트 3 -->
+      <a href="#" class="block group cursor-pointer">
+        <div class="overflow-hidden bg-gray-100 aspect-[4/3] mb-6 relative">
+          <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2000" alt="Work 3" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+        </div>
+        <div class="flex justify-between items-baseline border-b border-gray-200 pb-2">
+          <h3 class="text-xl md:text-2xl italic group-hover:text-gray-600 transition">Editorial Layout</h3>
+          <span class="text-sm font-sans text-gray-400">2023</span>
+        </div>
+        <p class="mt-2 text-sm text-gray-500 font-sans">Print, Editorial</p>
+      </a>
+
+      <!-- 프로젝트 4 -->
+      <a href="#" class="block group cursor-pointer">
+        <div class="overflow-hidden bg-gray-100 aspect-[4/3] mb-6 relative">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000" alt="Work 4" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+        </div>
+        <div class="flex justify-between items-baseline border-b border-gray-200 pb-2">
+          <h3 class="text-xl md:text-2xl italic group-hover:text-gray-600 transition">Web Experience</h3>
+          <span class="text-sm font-sans text-gray-400">2023</span>
+        </div>
+        <p class="mt-2 text-sm text-gray-500 font-sans">Web Design</p>
       </a>
 
     </div>
-  </section>
 
-  <!-- 연락처 -->
-  <section id="contact" class="mt-40 mb-20">
-    <h2 class="text-3xl md:text-4xl font-bold mb-8">Let's work together.</h2>
-    <div class="flex flex-col md:flex-row gap-8 md:gap-16 text-lg">
-      <div><span class="block text-gray-400 text-sm mb-2">Email</span> rkdalswl9924@gmail.com</div>
+    <!-- 하단 푸터 (Work 섹션 끝) -->
+    <div class="mt-32 border-t border-gray-200 pt-8 text-center text-sm font-sans text-gray-400">
+      &copy; 2024 Kim Design.
     </div>
-  </section>
-</main>
-
-<footer class="bg-gray-50 border-t border-gray-200 py-12">
-  <div class="max-w-7xl mx-auto px-6 text-sm text-gray-400">
-    <p>&copy; 2025 MinJi Kang.</p>
   </div>
-</footer>
+</section>
 
+<!-- =======================
+     JAVASCRIPT (기능)
+     ======================= -->
 <script>
-  const btn = document.getElementById('mobile-menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  if(btn) btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
+  // 1. 이미지 슬라이더 기능
+  const slides = document.querySelectorAll('#slider .fade-img');
+  let currentSlide = 0;
+  const slideInterval = 3000; // 3초마다 변경
 
-  // 페이드인 효과
-  document.addEventListener('DOMContentLoaded', () => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove('opacity-0', 'translate-y-4');
-        }
-      });
-    });
-    document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
-  });
+  function nextSlide() {
+    // 현재 슬라이드 끄기
+    slides[currentSlide].classList.remove('active');
+    // 다음 슬라이드 번호 계산
+    currentSlide = (currentSlide + 1) % slides.length;
+    // 다음 슬라이드 켜기
+    slides[currentSlide].classList.add('active');
+  }
+
+  // 3초마다 실행
+  setInterval(nextSlide, slideInterval);
+
+
+  // 2. Information 모달 열기/닫기 기능
+  function toggleInfo() {
+    const modal = document.getElementById('info-modal');
+
+    if (modal.classList.contains('hidden')) {
+      // 열기
+      modal.classList.remove('hidden');
+      // 약간의 지연 후 투명도 조절 (부드럽게)
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+      }, 10);
+      document.body.style.overflow = 'hidden'; // 배경 스크롤 막기
+    } else {
+      // 닫기
+      modal.classList.add('opacity-0');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 500); // transition 시간만큼 대기
+      document.body.style.overflow = ''; // 스크롤 허용
+    }
+  }
 </script>
 </body>
 </html>
